@@ -9,7 +9,7 @@
     {
         if(!empty($_POST['pseudo']) && !empty($_POST['mdp']))
         {
-            if($_POST['pseudo'] == "GaelHF" && $_POST['mdp'] == "lovecode2010")
+            if($_POST['pseudo'] == $vibe_username && $_POST['mdp'] == $vibe_password)
             {
                 $_SESSION['pseudo'] = $_POST['pseudo'];
                 $_SESSION['auth'] = True;

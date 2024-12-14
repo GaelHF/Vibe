@@ -30,8 +30,10 @@
     <title>VIBE - Liste</title>
 </head>
 <body style="background-color: rgb(42, 6, 50);">
+    <br>
+    <h1 class="text-center text-white">Bonjour, <?= $_SESSION['pseudo']; ?></h1>
     <?php
-        if($_SESSION['pseudo'] == "GaelHF")
+        if($_SESSION['pseudo'] == $vibe_username)
         {
             ?>
             <div style="margin: 5%;" class="text-center">
