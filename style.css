@@ -1,0 +1,17 @@
+.timeline-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#timeline {
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+}
+
+audio::-webkit-media-controls-play-button {
+    display: none;
+}
