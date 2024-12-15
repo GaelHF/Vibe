@@ -8,10 +8,10 @@
 
     if(isset($_POST['add_music']))
     {
-        if(!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['time']) && !empty($_POST['path']) && !empty($_POST['spacename']))
+        if(!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['time']) && !empty($_POST['path']) && !empty($_POST['spacename']) && !empty($_POST['url_yt']) && !empty($_POST['url_spotify']))
         {
-            $addNewMusic = $bdd->prepare("INSERT INTO songs (title, author, time, path, spacename) VALUES (?, ?, ?, ?, ?)");
-            $addNewMusic->execute(array($_POST['title'], $_POST['author'], $_POST['time'], $_POST['path'], $_POST['spacename']));
+            $addNewMusic = $bdd->prepare("INSERT INTO songs (title, author, time, path, spacename, url_yt, url_sfy) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $addNewMusic->execute(array($_POST['title'], $_POST['author'], $_POST['time'], $_POST['path'], $_POST['spacename'], $_POST['url_yt'], $_POST['url_sfy']));
         }
     }
 
@@ -31,6 +31,24 @@
         @font-face {
             font-family: customFont;
             src: url('assets/customFont.otf');
+        }
+
+        .clipyt {
+            cursor: default;
+        }
+
+        .clipyt:hover {
+            cursor: pointer;
+            color: red;
+        }
+
+        .clipsfy {
+            cursor: default;
+        }
+
+        .clipsfy:hover {
+            cursor: pointer;
+            color: lime;
         }
     </style>
     <link rel="icon" type="image/x-icon" href="assets/icon.ico">
@@ -54,6 +72,8 @@
                     <input type="text" class="form-control" placeholder="Durée (0:00)" name="time"><br>
                     <input type="text" class="form-control" placeholder="Chemin (dossier de la musique)" name="path"><br>
                     <input type="text" class="form-control" placeholder="Code ID (ma-musique)" name="spacename"><br>
+                    <input type="text" class="form-control" placeholder="Lien Clip YouTube" name="url_yt"><br>
+                    <input type="text" class="form-control" placeholder="Lien Spotify" name="url_sfy"><br>
                     <input type="submit" class="btn btn-primary" value="Ajouter" name="add_music">
                 </form>
             </div>
@@ -71,7 +91,7 @@
                                 <input type="hidden" name="song_id" value="<?= $song['id']; ?>">
                                 <input type="submit" class="btn btn-danger me-2" name="delete" value="Retirer">
                             </form>
-                            <p id="<?= $song['spacename']; ?>-data" class="mb-0 flex-grow-1"><strong><?= $song['title']; ?></strong> | <?= $song['author']; ?> (<?= $song['path']; ?>/<?= $song['spacename']; ?>) [<?= $song['id']; ?>]</p>
+                            <p id="<?= $song['spacename']; ?>-data" class="mb-0 flex-grow-1"><strong><?= $song['title']; ?></strong> | <?= $song['author']; ?> (<?= $song['path']; ?>/<?= $song['spacename']; ?>) [<?= $song['id']; ?>] | <i class="bi bi-youtube clipyt" onclick="load_exrt('<?= $song['yt_url']; ?>')"></i> | <i class="bi bi-spotify clipsfy" onclick="load_exrt('<?= $song['sfy_url']; ?>')"></i></p>
                             <p class="mb-0 flex-grow-2"><?= $song['time']; ?></p>
                         </div>
                     </div>
@@ -81,6 +101,11 @@
         </section>
     </div>
     <script>
+        function load_exrt(link)
+        {
+            window.open(link);
+        }
+
         function liste()
         {
             window.location.replace('list.php');
